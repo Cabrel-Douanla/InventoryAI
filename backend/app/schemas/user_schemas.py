@@ -1,38 +1,67 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, List
+from app.models.user_models import UserRole
 
 # ==============================================================================
-# SCHÉMAS POUR LES UTILISATEURS
+# SCHÉMAS DE BASE
 # ==============================================================================
 
-# Schéma de base pour un utilisateur, avec les champs partagés
 class UserBase(BaseModel):
     email: EmailStr
 
-# Schéma pour la création d'un utilisateur (ce que l'API reçoit)
-class UserCreate(UserBase):
+class CompanyBase(BaseModel):
+    name: str
+
+# ==============================================================================
+# SCHÉMAS POUR LES ACTIONS (INPUT)
+# ==============================================================================
+
+class UserRegister(UserBase):
     password: str
-    company_name: str # On crée l'entreprise en même temps que le premier utilisateur
 
-# Schéma pour la mise à jour d'un utilisateur
-class UserUpdate(UserBase):
-    password: Optional[str] = None
-    is_active: Optional[bool] = None
+class CompanyCreate(CompanyBase):
+    pass
 
-# Schéma pour la lecture d'un utilisateur (ce que l'API renvoie)
-# Important : NE JAMAIS renvoyer le mot de passe haché !
+class UserInvite(UserBase):
+    role: UserRole = UserRole.MEMBER
+
+# ==============================================================================
+# SCHÉMAS POUR LES RÉPONSES (OUTPUT)
+# ==============================================================================
+
+# NOUVEAU / CORRIGÉ : Représente une affiliation d'un utilisateur à une entreprise.
+class UserCompany(CompanyBase):
+    id: int
+    role: UserRole
+
+# MODIFICATION MAJEURE : UserInDB ne contient PLUS company_id ou role.
+# Il représente un utilisateur et la liste de ses affiliations.
 class UserInDB(UserBase):
     id: int
-    company_id: int
     is_active: bool
-    is_superuser: bool
+    companies: List[UserCompany] = [] # La liste de ses entreprises
 
     class Config:
-        from_attributes = True # Anciennement orm_mode = True
+        from_attributes = True
 
-# ==============================================================================
-# SCHÉMAS POUR L'AUTHENTIFICATION (TOKEN)
-# ==============================================================================
+# MODIFICATION MAJEURE : CompanyMember est maintenant un schéma indépendant.
+# Il représente un utilisateur tel qu'il apparaît dans la liste des membres d'une entreprise.
+class CompanyMember(UserBase):
+    id: int
+    is_active: bool
+    role: UserRole # Le rôle spécifique à cette entreprise
+
+class CompanyDetails(CompanyBase):
+    id: int
+    members: List[CompanyMember]
+
+# Schéma pour la réponse du login, utilisant le UserInDB corrigé
+class LoginResponse(BaseModel):
+    access_token: str
+    token_type: str
+    user: UserInDB
+
+# --- Schémas pour les Tokens ---
 
 class Token(BaseModel):
     access_token: str
@@ -40,3 +69,6 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[EmailStr] = None
+
+class SpecialTokenData(TokenData):
+    purpose: str
