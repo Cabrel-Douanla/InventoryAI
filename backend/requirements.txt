@@ -1,0 +1,26 @@
+# Framework et Serveur
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Base de Données
+psycopg2-binary
+sqlalchemy
+sqlmodel
+pydantic
+pydantic[email]
+
+# Tâches Asynchrones
+celery
+redis
+
+# Sécurité & Auth
+python-jose[cryptography]
+passlib[bcrypt]
+
+# Configuration
+python-dotenv
+
+# Outils de dev et tests
+pytest
+httpx # Pour tester l'API avec pytest

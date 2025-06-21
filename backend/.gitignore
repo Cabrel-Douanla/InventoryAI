@@ -1,0 +1,20 @@
+# Fichiers de configuration locaux
+.env
+
+# Répertoires de cache Python
+__pycache__/
+*.pyc
+
+# Environnements virtuels
+.venv/
+venv/
+
+# Fichiers de l'IDE
+.idea/
+.vscode/
+
+# Fichiers de cache et de build
+.pytest_cache/
+build/
+dist/
+*.egg-info/
