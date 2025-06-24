@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables personnalisées pour le thème */
+:root {
+  --primary-blue: #1e40af;
+  --secondary-blue: #3b82f6;
+  --accent-green: #10b981;
+  --warning-orange: #f59e0b;
+  --danger-red: #ef4444;
+  --gray-light: #f8fafc;
+  --gray-medium: #64748b;
+  --gray-dark: #1e293b;
+}
+
+/* Styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--gray-light);
+  color: var(--gray-dark);
+}
+
+/* Composants personnalisés avec @apply */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+  }
+  
+  .card-header {
+    @apply border-b border-gray-200 pb-4 mb-6;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200;
+  }
+  
+  .select-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 cursor-pointer;
+  }
+  
+  .metric-card {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .sidebar-item {
+    @apply flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors duration-200 cursor-pointer;
+  }
+  
+  .sidebar-item-active {
+    @apply bg-blue-100 text-blue-700 font-medium;
+  }
+  
+  .chart-container {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-96;
+  }
+  
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+  
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
+  }
+  
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+}
+
+/* Animations personnalisées */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Styles pour les graphiques */
+.chart-tooltip {
+  @apply bg-gray-900 text-white text-sm rounded-lg px-3 py-2 shadow-lg;
+}
+
+.chart-legend {
+  @apply flex items-center space-x-4 justify-center mt-4;
+}
+
+.legend-item {
+  @apply flex items-center space-x-2 text-sm text-gray-600;
+}
+
+.legend-color {
+  @apply w-3 h-3 rounded-full;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card {
+    @apply p-4;
+  }
+  
+  .chart-container {
+    @apply h-80;
+  }
+}
+
+/* Scrollbar personnalisé */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
