@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   BarChart3, 
-  TrendingUp, 
   Package, 
   Settings, 
   Bell, 
@@ -228,7 +227,7 @@ const UserMenu = ({ user, onLogout }) => {
 };
 
 // Layout principal avec authentification
-const Layout = ({ children, currentPage = 'prediction' }) => {
+const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -240,8 +239,9 @@ const Layout = ({ children, currentPage = 'prediction' }) => {
     { id: 'prediction', label: 'Prédiction Demande', icon: Brain, path: '/prediction' },
     { id: 'optimization', label: 'Optimisation Stock', icon: Package, path: '/catalog-management' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3, path: '/analytics' },
+    { id: 'users', label: 'Gestion des utilisateurs', icon: BarChart3, path: '/user-management' },
     { id: 'data', label: 'Données', icon: Database, path: '/account-management' },
-    { id: 'settings', label: 'Paramètres', icon: Settings, path: '/user-management' },
+    { id: 'settings', label: 'Informations Entreprises', icon: Database, path: '/entreprise' },
     { id: 'vente', label: 'Vente', icon: Settings, path: '/vente' },
   ];
 

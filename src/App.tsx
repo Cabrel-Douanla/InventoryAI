@@ -7,6 +7,8 @@ import EnterpriseAccountManagement from './components/module1/EnterpriseAccountM
 import UserRoleManagement from './components/module1/UserRoleManagement.tsx'
 import ProductCatalog from './components/module1/ProductCatalog.tsx'
 import ImportSyncModule from './components/module1/ImportSyncModule.tsx'
+import CreateEntreprise from './components/module1/CreateEntreprise.tsx'
+import ListEntreprise from './components/module1/ListEntreprise.tsx'
 import PredictionModule from './components/common/PredictionModule.tsx'
 
 const App = () => {
@@ -17,11 +19,13 @@ const App = () => {
           <Route path="/dashboard" element={<PredictionDashboard />} />
           <Route path="/analytics" element={<PredictionExplanation />} />
           <Route path="/prediction" element={<PredictionModule />} />
+          <Route path="/account-management" element={<EnterpriseAccountManagement />} />
           <Route path="/user-management" element={<UserRoleManagement />} />
           <Route path="/catalog-management" element={<ProductCatalog />} />
           <Route path="/vente" element={<ImportSyncModule />} />
+          <Route path="/entreprise" element={<ListEntreprise />} />
         </Route>
-          <Route path="/account-management" element={<EnterpriseAccountManagement />} />
+          <Route path="/" element={<CreateEntreprise />} />
       </Routes>
     </Router>
   )

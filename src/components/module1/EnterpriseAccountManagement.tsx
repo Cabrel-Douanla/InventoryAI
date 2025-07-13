@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Building2, Edit, Download, Save, X, Shield, Users, CreditCard, Settings, AlertCircle, CheckCircle, Calendar, MapPin, Phone, Mail, Globe, User } from 'lucide-react';
+import { Building2, Edit, Download, Save, X, Shield, Users, CreditCard, Settings, AlertCircle, CheckCircle, MapPin, Phone, Mail, Globe, User } from 'lucide-react';
 
 const EnterpriseAccountManagement = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [showBillingDetails, setShowBillingDetails] = useState(false);
-  const [activeTab, setActiveTab] = useState('general');
+  const [activeTab, setActiveTab] = useState('billing');
   
   const [companyInfo, setCompanyInfo] = useState({
     name: 'TechCorp Solutions',
@@ -177,13 +176,6 @@ const EnterpriseAccountManagement = () => {
           <div className="p-4 border-b">
             <div className="flex space-x-2">
               <TabButton
-                id="general"
-                label="Informations Générales"
-                icon={Building2}
-                active={activeTab === 'general'}
-                onClick={setActiveTab}
-              />
-              <TabButton
                 id="billing"
                 label="Facturation"
                 icon={CreditCard}
@@ -208,103 +200,6 @@ const EnterpriseAccountManagement = () => {
           </div>
 
           <div className="p-6">
-            {/* General Information Tab */}
-            {activeTab === 'general' && (
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Informations de l'Entreprise</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputField
-                      label="Nom de l'entreprise"
-                      value={companyInfo.name}
-                      onChange={(e) => setCompanyInfo({...companyInfo, name: e.target.value})}
-                      name="name"
-                    />
-                    <InputField
-                      label="Secteur d'activité"
-                      value={companyInfo.industry}
-                      onChange={(e) => setCompanyInfo({...companyInfo, industry: e.target.value})}
-                      name="industry"
-                    />
-                    <InputField
-                      label="Taille de l'entreprise"
-                      value={companyInfo.size}
-                      onChange={(e) => setCompanyInfo({...companyInfo, size: e.target.value})}
-                      name="size"
-                    />
-                    <InputField
-                      label="Numéro de SIRET"
-                      value={companyInfo.registrationNumber}
-                      onChange={(e) => setCompanyInfo({...companyInfo, registrationNumber: e.target.value})}
-                      name="registrationNumber"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Adresse</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="md:col-span-2">
-                      <InputField
-                        label="Adresse"
-                        value={companyInfo.address}
-                        onChange={(e) => setCompanyInfo({...companyInfo, address: e.target.value})}
-                        name="address"
-                      />
-                    </div>
-                    <InputField
-                      label="Ville"
-                      value={companyInfo.city}
-                      onChange={(e) => setCompanyInfo({...companyInfo, city: e.target.value})}
-                      name="city"
-                    />
-                    <InputField
-                      label="Code postal"
-                      value={companyInfo.postalCode}
-                      onChange={(e) => setCompanyInfo({...companyInfo, postalCode: e.target.value})}
-                      name="postalCode"
-                    />
-                    <InputField
-                      label="Pays"
-                      value={companyInfo.country}
-                      onChange={(e) => setCompanyInfo({...companyInfo, country: e.target.value})}
-                      name="country"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputField
-                      label="Téléphone"
-                      value={companyInfo.phone}
-                      onChange={(e) => setCompanyInfo({...companyInfo, phone: e.target.value})}
-                      name="phone"
-                    />
-                    <InputField
-                      label="Email"
-                      value={companyInfo.email}
-                      onChange={(e) => setCompanyInfo({...companyInfo, email: e.target.value})}
-                      name="email"
-                      type="email"
-                    />
-                    <InputField
-                      label="Site web"
-                      value={companyInfo.website}
-                      onChange={(e) => setCompanyInfo({...companyInfo, website: e.target.value})}
-                      name="website"
-                    />
-                    <InputField
-                      label="Numéro de TVA"
-                      value={companyInfo.taxId}
-                      onChange={(e) => setCompanyInfo({...companyInfo, taxId: e.target.value})}
-                      name="taxId"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Billing Tab */}
             {activeTab === 'billing' && (
