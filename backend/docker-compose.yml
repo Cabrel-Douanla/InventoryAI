@@ -34,19 +34,18 @@ services:
     ports:
       - "6379:6379"
 
-  # Service Worker Celery (pour les tâches asynchrones)
-  # Pour l'instant on le commente, on le lancera plus tard
-  # worker:
-  #   build: .
-  #   command: celery -A tasks.celery_app worker --loglevel=info
-  #   volumes:
-  #     - ./app:/app/app
-  #     - ./tasks:/app/tasks
-  #   env_file:
-  #     - ./.env
-  #   depends_on:
-  #     - redis
-  #     - api
+   # Service Worker Celery
+  worker:
+    build: .
+    command: celery -A tasks.celery_app worker --loglevel=info
+    volumes:
+      - ./app:/app/app
+      - ./tasks:/app/tasks
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+      - db # Le worker a besoin de se connecter à la BDD
 
 volumes:
   postgres_data:

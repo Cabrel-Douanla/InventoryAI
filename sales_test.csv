@@ -1,0 +1,4 @@
+transaction_date,sku,quantity_sold,unit_price
+2023-01-01,MON-SKU-001,10,15.50
+2023-01-02,MON-SKU-001,12,15.50
+2023-01-02,SKU-INEXISTANT,5,10.00

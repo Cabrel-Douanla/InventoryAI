@@ -10,6 +10,11 @@ from fastapi.middleware.cors import CORSMiddleware
 # Importer les modules de base de données et les routeurs de l'API
 from app.db.database import create_db_and_tables
 from app.api.v1.endpoints import auth, company
+from app.api.v1.endpoints import auth, company, products
+from app.api.v1.endpoints import auth, company, products, sales # Ajouter sales
+from app.api.v1.endpoints import auth, company, products, sales, predictions # Ajouter predictions
+
+
 
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
@@ -80,6 +85,24 @@ app.include_router(
     tags=["Company Management"]
 )
 
+# Inclure le routeur pour la gestion des produits
+app.include_router(
+    products.router,
+    prefix="/api/v1/products", # Les routes seront /api/v1/products/...
+    tags=["Product Management"]
+)
+
+app.include_router(
+    sales.router,
+    prefix="/api/v1/sales",
+    tags=["Sales Data Management"]
+)
+
+app.include_router(
+    predictions.router,
+    prefix="/api/v1/predictions",
+    tags=["AI Predictions"]
+)
 
 # ==============================================================================
 # ENDPOINT RACINE

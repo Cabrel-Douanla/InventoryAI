@@ -11,7 +11,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 4. Copier le reste du code de l'application
 COPY ./app /app/app
-# COPY ./tasks /app/tasks
+COPY ./tasks /app/tasks
+
+# NOUVELLE INSTRUCTION : Copier les artefacts du modèle
+COPY ./models_artefacts /app/models_artefacts
 
 # 5. Exposer le port que l'application utilisera
-EXPOSE 8000
+EXPOSE 80

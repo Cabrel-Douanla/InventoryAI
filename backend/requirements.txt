@@ -24,3 +24,10 @@ python-dotenv
 # Outils de dev et tests
 pytest
 httpx # Pour tester l'API avec pytest
+
+# Données
+pandas
+scipy
+joblib
+lightgbm
+scikit-learn
