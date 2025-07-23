@@ -9,6 +9,12 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# 2. Mettre à jour les paquets du système et installer la dépendance manquante
+# libgomp1 est le paquet qui contient libgomp.so.1
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 # 4. Copier le reste du code de l'application
 COPY ./app /app/app
 COPY ./tasks /app/tasks
