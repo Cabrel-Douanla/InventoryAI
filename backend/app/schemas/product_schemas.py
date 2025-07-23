@@ -11,7 +11,7 @@ class ProductBase(BaseModel):
 
 # Schéma pour la création d'un produit (ce que l'API reçoit)
 class ProductCreate(ProductBase):
-    pass # Pour l'instant, identique à la base
+    company_id: Optional[str] = None
 
 # Schéma pour la mise à jour d'un produit (tous les champs sont optionnels)
 class ProductUpdate(BaseModel):

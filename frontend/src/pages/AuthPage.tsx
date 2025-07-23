@@ -12,7 +12,7 @@ import { Brain, LogIn, UserPlus, Building2, Save, Loader2, Mail, Lock, Eye, EyeO
 import { useAuthStore } from '../stores/authStore';
 import type { UserProfile, LoginResponse } from '../types';
 import api from '../api';
-import { loginUser, registerUser, createCompany } from '../services/apiServices';
+import { loginUser, registerUser, createCompany } from '../services/apiService';
 
 // ==============================================================================
 // SCHÉMAS DE VALIDATION ZOD
@@ -41,6 +41,7 @@ type CompanyFormData = z.infer<typeof companySchema>;
 const LoginForm = ({ onSwitchToRegister, onLoginSuccess }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema)
+        
     });
     const [showPassword, setShowPassword] = useState(false);
     const loginMutation = useMutation({
@@ -54,7 +55,8 @@ const LoginForm = ({ onSwitchToRegister, onLoginSuccess }) => {
         }
     });
 
-    const onSubmit: SubmitHandler<LoginFormData> = (data) => {
+    const onSubmit: SubmitHandler<LoginFormData> = (data, e) => {
+        e?.preventDefault()
         loginMutation.mutate({ username: data.email, password: data.password });
     };
 

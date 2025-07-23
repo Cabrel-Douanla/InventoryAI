@@ -27,6 +27,9 @@ def create_new_product(
     existing_product = product_crud.get_product_by_sku_for_company(
         db, sku=product_in.sku, company_id=active_company.id
     )
+    if active_company.id:
+        product_in.company_id = active_company.id
+
     if existing_product:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,

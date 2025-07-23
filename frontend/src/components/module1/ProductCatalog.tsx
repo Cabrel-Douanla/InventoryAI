@@ -9,7 +9,7 @@ import * as z from 'zod';
 import toast from 'react-hot-toast';
 
 import { useAuthStore } from '../../stores/authStore';
-import { type Product, createProduct, updateProduct, fetchProducts, deleteProduct } from '../../services/apiServices';
+import { type Product, createProduct, updateProduct, fetchProducts, deleteProduct } from '../../services/apiService';
 
 // ==============================================================================
 // VALIDATION DE FORMULAIRE AVEC ZOD

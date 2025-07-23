@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { Upload, FileText, CheckCircle, XCircle, Clock, Loader2, Eye, Database, BarChart3, Calendar, Settings } from 'lucide-react';
 
-import { uploadSalesFile, fetchJobStatus } from '../../services/apiServices';
+import { uploadSalesFile, fetchJobStatus } from '../../services/apiService';
 import { useAuthStore } from '../../stores/authStore';
 import { type JobStatusResponse } from '../../types';
 

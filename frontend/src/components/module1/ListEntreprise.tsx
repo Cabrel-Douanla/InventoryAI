@@ -4,7 +4,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X, Loader2 } 
 
 import { useAuthStore } from '../../stores/authStore';
 import api from '../../api'; // Importer pour rafraîchir les données utilisateur
-import { createCompany } from '../../services/apiServices';
+import { createCompany } from '../../services/apiService';
 
 // ==============================================================================
 // SOUS-COMPOSANTS (Inchangés mais inclus pour la complétude)

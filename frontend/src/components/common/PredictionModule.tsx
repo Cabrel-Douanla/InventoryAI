@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { Brain, Package, Loader2, TrendingUp, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-import { fetchProducts, triggerPrediction, fetchJobStatus, type Product } from '../../services/apiServices';
+import { fetchProducts, triggerPrediction, fetchJobStatus, type Product } from '../../services/apiService';
 import { useAuthStore } from '../../stores/authStore';
 import { type PredictionResult } from '../../types';
 

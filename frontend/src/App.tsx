@@ -1,6 +1,5 @@
 // Fichier: src/App.tsx
 
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import PredictionDashboard from './pages/PredictionDashboard';
@@ -9,7 +8,6 @@ import EnterpriseAccountManagement from './components/module1/EnterpriseAccountM
 import UserRoleManagement from './components/module1/UserRoleManagement';
 import ProductCatalog from './components/module1/ProductCatalog';
 import ImportSyncModule from './components/module1/ImportSyncModule';
-import CreateEntreprise from './components/module1/CreateEntreprise';
 import ListEntreprise from './components/module1/ListEntreprise';
 import PredictionModule from './components/common/PredictionModule';
 import ProtectedRoute from './components/common/ProtectedRoutes';

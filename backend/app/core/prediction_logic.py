@@ -6,6 +6,7 @@ import json
 import os
 from scipy.stats import norm
 from typing import List
+from app.core.stock_optimization import calculate_optimal_stock_levels
 
 # Définir les chemins des artefacts du modèle
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) # Remonte au dossier /app

@@ -37,7 +37,11 @@ services:
    # Service Worker Celery
   worker:
     build: .
-    command: celery -A tasks.celery_app worker --loglevel=info
+    # ==========================================================
+    # CORRECTION : Changer la commande pour utiliser le pool "solo"
+    # ==========================================================
+    command: celery -A tasks.celery_app worker --loglevel=info --pool=solo
+    # ==========================================================
     volumes:
       - ./app:/app/app
       - ./tasks:/app/tasks
