@@ -34,29 +34,46 @@ const LoginForm = ({ onLogin }) => {
     setError('');
 
     try {
-      // Simulation d'une authentification
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Validation basique
-      if (formData.email && formData.password) {
-        const userData = {
-          id: 1,
-          name: 'Admin',
-          email: formData.email,
-          company: 'Entreprise ABC',
-          role: 'Administrateur',
-          avatar: null
-        };
-        onLogin(userData);
-      } else {
-        throw new Error('Email et mot de passe requis');
+      const response = await fetch('http://localhost:8000/api/v1/login/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          username: formData.email,
+          password: formData.password
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Erreur de connexion');
       }
+
+      const data = await response.json();
+
+      const userData = {
+        id: data.user.id,
+        name: data.user.email.split('@')[0], // ou autre champ si tu veux
+        email: data.user.email,
+        company: data.user.companies?.[0]?.name || '',
+        role: data.user.companies?.[0]?.role || '',
+        token: data.access_token
+      };
+
+      // Stockage local
+      localStorage.setItem('inventoryai_user', JSON.stringify(userData));
+      localStorage.setItem('inventoryai_token', data.access_token);
+
+      // Envoi au layout
+      onLogin(userData);
     } catch (err) {
       setError(err.message || 'Erreur de connexion');
     } finally {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
@@ -143,8 +160,8 @@ const LoginForm = ({ onLogin }) => {
               Compte de démonstration
             </h3>
             <p className="text-xs text-gray-600">
-              Email: admin@exemple.com<br />
-              Mot de passe: demo123
+              Email: rai@exemple.com<br />
+              Mot de passe: rai
             </p>
           </div>
         </div>
@@ -271,7 +288,7 @@ const Layout = () => {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('inventoryai_user');
+    localStorage.removeItem('token');
   };
 
   // Écran de chargement

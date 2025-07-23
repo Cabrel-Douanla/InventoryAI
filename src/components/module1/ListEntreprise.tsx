@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'lucide-react';
-
+import api from '../../api';
 
   const EnterpriseCard = ({ enterprise, onEdit, onDelete }) => (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 hover:shadow-lg transition-shadow">
@@ -47,26 +47,29 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
           <Mail className="w-4 h-4" />
           <span>{enterprise.email}</span>
         </div>
+        {/*  
         <div className="flex items-center space-x-2">
           <label className='font-semibold'>size:</label>
           <span>{enterprise.size}</span>
-        </div>
+        </div>*/}
         <div className="flex items-center space-x-2">
-          <label className='font-semibold'>city:</label>
+          <label className='font-semibold'>ville:</label>
           <span>{enterprise.city}</span>
         </div>
+        {/*  
         <div className="flex items-center space-x-2">
           <label className='font-semibold'>PostalCode:</label>
           <span>{enterprise.postalCode}</span>
-        </div>
+        </div>*/}
         <div className="flex items-center space-x-2">
-          <label className='font-semibold'>country:</label>
+          <label className='font-semibold'>pays:</label>
           <span>{enterprise.country}</span>
         </div>
         <div className="flex items-center space-x-2">
           <label className='font-semibold'>website:</label>          
           <span>{enterprise.website}</span>
         </div>
+        {/*  
         <div className="flex items-center space-x-2">
           <label className='font-semibold'>taxId:</label>          
           <span>{enterprise.taxId}</span>
@@ -74,7 +77,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
         <div className="flex items-center space-x-2">
           <label className='font-semibold'>registrationNumber:</label>          
           <span>{enterprise.registrationNumber}</span>
-        </div>
+        </div>*/}
         <div className="flex items-center justify-between mt-4">
           <span className={`px-2 py-1 rounded-full text-xs ${
             enterprise.isOwner 
@@ -100,8 +103,8 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
             </label>
             <input
               type="text"
-              value={data.name}
-              onChange={(e) => onChange({ ...data, name: e.target.value })}
+              value={data.nom}
+              onChange={(e) => onChange({ ...data, nom: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ex: Distribution Centrale SARL"
             />
@@ -112,8 +115,8 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               Secteur d'activité *
             </label>
             <select
-              value={data.sector}
-              onChange={(e) => onChange({ ...data, sector: e.target.value })}
+              value={data.secteur_activite}
+              onChange={(e) => onChange({ ...data, secteur_activite: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="Distribution">Distribution</option>
@@ -124,7 +127,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               <option value="Autre">Autre</option>
             </select>
           </div>
-          
+          {/*
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Taille de l'entreprise *
@@ -138,7 +141,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
             />
           </div>
           
-          <div className="md:col-span-2">
+           <div className="md:col-span-2"> 
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Numéro de SIRET *
             </label>
@@ -149,7 +152,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ex: 123 456 789 RCS Paris"
             />
-          </div>
+          </div>*/}
           
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -163,7 +166,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               placeholder="Ex: Avenue Kennedy, Douala, Cameroun"
             />
           </div>
-          
+          {/*  
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Code postal *
@@ -176,15 +179,15 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               placeholder="75008"
             />
           </div>
-          
+          */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Pays *
+              Pays
             </label>
             <input
               type="tel"
-              value={data.country}
-              onChange={(e) => onChange({ ...data, country: e.target.value })}
+              value={data.pays}
+              onChange={(e) => onChange({ ...data, pays: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="France"
             />
@@ -192,12 +195,12 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Ville *
+              Ville 
             </label>
             <input
               type="text"
-              value={data.city}
-              onChange={(e) => onChange({ ...data, city: e.target.value })}
+              value={data.ville}
+              onChange={(e) => onChange({ ...data, ville: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Paris"
             />
@@ -205,12 +208,12 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Téléphone *
+              Téléphone
             </label>
             <input
               type="tel"
-              value={data.phone}
-              onChange={(e) => onChange({ ...data, phone: e.target.value })}
+              value={data.telephone}
+              onChange={(e) => onChange({ ...data, telephone: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="+237 233 42 15 78"
             />
@@ -231,17 +234,17 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Site web *
+              Site web 
             </label>
             <input
               type="text"
-              value={data.website}
-              onChange={(e) => onChange({ ...data, website: e.target.value })}
+              value={data.site_web}
+              onChange={(e) => onChange({ ...data, site_web: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ex: www.techcorp-solutions.fr"
             />
           </div>
-          
+          {/*  
           <div className="md:col-span-2">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Numéro de TVA *
@@ -253,7 +256,7 @@ import { Building2, Plus, Edit, Trash2, Mail, Phone, MapPin, Save, X } from 'luc
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Ex: FR12345678901"
             />
-          </div>
+          </div>*/}
         </div>
         
         <div className="flex justify-end space-x-4 mt-6">
@@ -293,67 +296,83 @@ const ListEntreprises = () => {
       taxId: 'FR12345678901',
       registrationNumber: '123 456 789 RCS Paris',
       isOwner: true
-    },
-    {
-      id: 2,
-      name: "Pharma Plus",
-      sector: "Pharmacie",
-      size: '250-500 employés',
-      address: "Quartier Bastos, Yaoundé, Cameroun",
-      city: 'Paris',
-      postalCode: '75008',
-      country: 'France',
-      phone: "+237 222 20 45 67",
-      email: "info@pharmaplus.cm",
-      website: 'www.techcorp-solutions.fr',
-      taxId: 'FR12345678901',
-      registrationNumber: '123 456 789 RCS Paris',
-      isOwner: false
     }
   ]);
   const [editingEnterprise, setEditingEnterprise] = useState(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    sector: 'Distribution',
-    size: '',
-    address: '',
-    city: '',
-    postalCode: '',
-    country: '',
-    phone: '',
+    nom: '',
+    nom_commercial: '',
+    adresse: '',
+    ville: 'Douala',
+    pays: 'Cameroun',
+    telephone: '',
     email: '',
-    website: '',
-    taxId: '',
-    registrationNumber: ''
+    site_web: '',
+    secteur_activite: 'Distribution',
+    nombre_sku: '',
+    devise: 'FCFA',
+    fuseau_horaire: 'Africa/Douala',
+    langue: 'fr'
   });
 
+  const handleCreateEnterprise = async () => {
+    // if (!formData.nom || !formData.adresse || !formData.telephone || !formData.email) {
+    //   alert("Les champs obligatoires sont : nom, adresse, téléphone, email.");
+    //   return;
+    // }
 
-  const handleCreateEnterprise = () => {
-    if (formData.name && formData.address && formData.phone && formData.email) {
-      const newEnterprise = {
-        id: enterprises.length + 1,
-        ...formData,
-        isOwner: true
-      };
-      setEnterprises([...enterprises, newEnterprise]);
-      setFormData({
-        name: '',
-        sector: 'Distribution',
-        size: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        country: '',
-        phone: '',
-        email: '',
-        website: '',
-        taxId: '',
-        registrationNumber: ''
-      });
-      setShowCreateForm(false);
+    try {
+        const payload = {
+          ...formData,
+          nombre_sku: formData.nombre_sku ? parseInt(formData.nombre_sku) : null,
+        };
+
+        const response = await api.post('/companies/', payload);
+
+        const createdCompany = response.data;
+
+        setEnterprises([
+          ...enterprises,
+          {
+            // id: createdCompany.id,
+            nom: createdCompany.nom,
+            secteur_activite: createdCompany.secteur_activite,
+            adresse: createdCompany.adresse,
+            ville: createdCompany.ville,
+            pays: createdCompany.pays,
+            telephone: createdCompany.telephone,
+            email: createdCompany.email,
+            site_web: createdCompany.site_web,
+            isOwner: true
+          }
+        ]);
+
+        // Reset du formulaire
+        setFormData({
+          nom: '',
+          nom_commercial: '',
+          adresse: '',
+          ville: 'Douala',
+          pays: 'Cameroun',
+          telephone: '',
+          email: '',
+          site_web: '',
+          secteur_activite: 'Distribution',
+          nombre_sku: '',
+          devise: 'FCFA',
+          fuseau_horaire: 'Africa/Douala',
+          langue: 'fr'
+        });
+
+        setShowCreateForm(false);
+    } catch (error: any) {
+      console.error("Erreur API:", error);
+      alert(error?.response?.data?.detail || "Erreur lors de la création de l'entreprise.");
     }
   };
+
+
 
   const handleUpdateEnterprise = () => {
     if (editingEnterprise) {
