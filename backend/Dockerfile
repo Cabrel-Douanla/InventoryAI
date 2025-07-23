@@ -22,11 +22,5 @@ COPY ./tasks /app/tasks
 # NOUVELLE INSTRUCTION : Copier les artefacts du modèle
 COPY ./models_artefacts /app/models_artefacts
 
-# 6. Exposer le port que l'application utilisera
-EXPOSE 8000
-
-# NOUVELLE INSTRUCTION : Commande de démarrage pour la production
-# Gunicorn va gérer plusieurs workers pour notre API.
-# Le worker Uvicorn est optimisé pour asyncio.
-# Le --host 0.0.0.0 est crucial pour que Docker puisse exposer le port.
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# 5. Exposer le port que l'application utilisera
+EXPOSE 80

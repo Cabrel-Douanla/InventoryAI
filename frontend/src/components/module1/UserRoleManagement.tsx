@@ -6,7 +6,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import toast from 'react-hot-toast';
-import { Plus, Search, Edit3, Trash2, Mail, Shield, Users, Loader2, X } from 'lucide-react';
+import { Plus, Search, Edit3, Trash2, Mail, Shield, Users, Loader2, X, UserPlus } from 'lucide-react';
 
 import { useAuthStore } from '../../stores/authStore';
 import { fetchCompanyDetails, inviteUser } from '../../services/apiService';

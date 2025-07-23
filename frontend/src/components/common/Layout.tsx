@@ -187,11 +187,11 @@ const Layout: React.FC = () => {
     { id: 'prediction', label: 'Prédiction Demande', icon: Brain, path: '/prediction', roles: ['admin', 'member'] },
     { id: 'catalog', label: 'Catalogue Produits', icon: Package, path: '/catalog-management', roles: ['admin', 'member'] },
     { id: 'sales', label: 'Import Ventes', icon: Database, path: '/vente', roles: ['admin', 'member'] },
-    { id: 'analytics', label: 'Analytics', icon: BarChart3, path: '/analytics', roles: ['admin', 'member'] },
+    // { id: 'analytics', label: 'Analytics', icon: BarChart3, path: '/analytics', roles: ['admin', 'member'] },
     { id: 'divider', type: 'divider' },
     { id: 'company_list', label: 'Infos Entreprises', icon: Building2, path: '/entreprise', roles: ['admin', 'member'] },
     { id: 'user_management', label: 'Gestion Équipe', icon: Settings, path: '/user-management', roles: ['admin'] },
-    { id: 'account_management', label: 'Compte & Facturation', icon: User, path: '/account-management', roles: ['admin'] },
+    // { id: 'account_management', label: 'Compte & Facturation', icon: User, path: '/account-management', roles: ['admin'] },
   ];
 
   // Filtrer les items du menu en fonction du rôle de l'utilisateur dans l'entreprise active

@@ -16,10 +16,99 @@ from app.models.base import User, Company, UserRole
 from app.api.deps import (
     get_current_active_user,
     get_company_from_path_and_verify_access,
+    get_active_company_and_role,
     get_admin_for_company_in_path,
+    get_active_company_admin,
 )
 
 router = APIRouter()
+
+
+@router.post("/invite", response_model=UserInDB)
+def invite_new_user(
+    user_to_invite: UserInvite,
+    db: Session = Depends(get_session),
+    active_company: Company = Depends(get_active_company_admin)
+) -> Any:
+    """
+    [Admin] Invite un nouvel utilisateur dans l'entreprise active (spécifiée dans X-Company-ID).
+    """
+    try:
+         # ====================================================================
+        # CORRECTION : Utiliser le bon nom de paramètre 'user_to_invite'
+        # ====================================================================
+        invited_user = user_crud.invite_user_to_company(
+            db, 
+            user_to_invite=user_to_invite, # <- Correction ici (de 'user_in' à 'user_to_invite')
+            company_id=active_company.id
+        )
+        # ====================================================================
+        
+        # ====================================================================
+        # CORRECTION : Construire manuellement l'objet de réponse valide
+        # ====================================================================
+        
+        # Forcer le rafraîchissement de l'objet pour charger les relations
+        db.refresh(invited_user, with_for_update=True) 
+
+        # Construire la liste des entreprises de l'utilisateur invité
+        user_companies = [
+            UserCompany(id=link.company.id, name=link.company.name, role=link.role)
+            for link in invited_user.company_links
+        ]
+
+        # Créer une instance du schéma de réponse
+        response_data = UserInDB(
+            id=invited_user.id,
+            email=invited_user.email,
+            is_active=invited_user.is_active,
+            companies=user_companies
+        )
+        
+        return response_data
+        # ====================================================================
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        # Logguer l'erreur pour le débogage
+        print(f"Unexpected error during user invitation: {e}")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="An unexpected error occurred during the invitation process.")
+
+# ====================================================================
+# NOUVEL ENDPOINT : GET / pour l'entreprise active
+# ====================================================================
+@router.get("/", response_model=CompanyDetails)
+def read_active_company_details(
+    db: Session = Depends(get_session),
+    active_company_info: tuple = Depends(get_active_company_and_role) # La dépendance fait tout le travail !
+) -> Any:
+    """
+    Récupère les détails de l'entreprise active (spécifiée dans le header X-Company-ID),
+    y compris la liste de tous ses membres.
+    """
+    active_company, user_role = active_company_info
+
+    # Récupérer tous les membres de cette entreprise
+    members_db = user_crud.get_company_members(db, company_id=active_company.id)
+    
+    # Mapper les objets User de la BDD vers le schéma CompanyMember
+    members_schema = [
+        CompanyMember(
+            id=member.id,
+            email=member.email,
+            is_active=member.is_active,
+            # Le rôle est extrait du lien spécifique à cette entreprise
+            role=next(link.role for link in member.company_links if link.company_id == active_company.id)
+        ) for member in members_db
+    ]
+
+    company_details = CompanyDetails(
+        id=active_company.id,
+        name=active_company.name,
+        members=members_schema
+    )
+    return company_details
+# ====================================================================
 
 
 @router.post("/", response_model=CompanyDetails, status_code=status.HTTP_201_CREATED)

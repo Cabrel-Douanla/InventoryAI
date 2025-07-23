@@ -63,3 +63,26 @@ export interface PredictionResult {
         };
     };
 }
+
+export interface ChartDataPoint {
+    date: string;
+    actual_sales?: number | null;
+    prediction?: number | null;
+    confidence_min?: number | null;
+    confidence_max?: number | null;
+}
+
+export interface DashboardKPIs {
+    model_accuracy_percent: number;
+    total_forecast_30d: number;
+    avg_daily_demand_30d: number;
+}
+
+export interface ProductDashboardData {
+    product_id: number;
+    product_sku: string;
+    product_name: string;
+    kpis: DashboardKPIs;
+    chart_data: ChartDataPoint[];
+    influencing_factors: Record<string, string>;
+}

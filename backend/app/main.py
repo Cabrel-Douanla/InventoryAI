@@ -13,6 +13,8 @@ from app.api.v1.endpoints import auth, company
 from app.api.v1.endpoints import auth, company, products
 from app.api.v1.endpoints import auth, company, products, sales # Ajouter sales
 from app.api.v1.endpoints import auth, company, products, sales, predictions # Ajouter predictions
+from app.api.v1.endpoints import auth, company, products, sales, predictions, dashboard # Ajouter dashboard
+
 
 
 
@@ -102,6 +104,12 @@ app.include_router(
     predictions.router,
     prefix="/api/v1/predictions",
     tags=["AI Predictions"]
+)
+
+app.include_router(
+    dashboard.router,
+    prefix="/api/v1/dashboard",
+    tags=["Dashboard"]
 )
 
 # ==============================================================================

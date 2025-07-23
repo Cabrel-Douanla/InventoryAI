@@ -1,6 +1,6 @@
 // Fichier: src/services/apiService.ts
 import api from '../api';
-import type { CompanyDetails, JobStatusResponse, JobSubmission, LoginResponse, UserProfile } from '../types';
+import type { CompanyDetails, ProductDashboardData, JobStatusResponse, JobSubmission, LoginResponse, UserProfile } from '../types';
 
 // Types pour les payloads (ce que l'API attend)
 interface CompanyCreatePayload {
@@ -44,9 +44,6 @@ export interface UserLoginPayload {
     username: string; // L'API attend 'username' pour l'email
     password: string;
 }
-
-
-
 export const registerUser = async (payload: UserRegisterPayload): Promise<UserProfile> => {
     const { data } = await api.post('/api/v1/register', payload);
     return data;
@@ -64,6 +61,10 @@ export const loginUser = async (payload: UserLoginPayload): Promise<LoginRespons
     return data;
 };
 
+export const fetchProductDashboardData = async (productId: number): Promise<ProductDashboardData> => {
+    const { data } = await api.get(`/api/v1/dashboard/product/${productId}`);
+    return data;
+};
 
 // Fonction pour créer une nouvelle entreprise
 export const createCompany = async (payload: CompanyCreatePayload): Promise<CompanyDetails> => {
